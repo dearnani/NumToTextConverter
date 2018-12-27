@@ -4,6 +4,10 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.virtusa.codetest.exception.NumToTextException;
+
 
 /**
  * 
@@ -15,6 +19,8 @@ import java.util.ResourceBundle;
  */
 public class ResourceBundleServiceLocator {
 
+	private static Logger logger = LoggerFactory.getLogger(ResourceBundleServiceLocator.class); 
+	
 	private final static String RESOURCE_BUNDLE = "config/application";
 	ResourceBundle bundle = null;
 	Locale locale = Locale.ENGLISH;
@@ -37,9 +43,10 @@ public class ResourceBundleServiceLocator {
 			bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE,
 					locale);
 
-		} catch (Exception exception) {
-			exception.printStackTrace();
-			System.out.printf("Excpetion thrown while parsing %s", exception.getMessage() );
+		} catch (Exception rsrcParserexception) {
+			Optional<String> errorMsg = ResourceBundleServiceLocator.getInstance().getProperty("error.1002");
+			logger.error(String.format("Excpetion thrown while parsing the application.properties At ResourceBundleServiceLocator -ErrorCode->1002 : ErrorMessage:-> %s Exception Message:%s",errorMsg.get(),rsrcParserexception.getMessage()));
+			throw new NumToTextException("1002", errorMsg.get());
 		}
 	}
 
@@ -63,7 +70,7 @@ public class ResourceBundleServiceLocator {
 	public String[] getValuesByKey(String key) {
 		if(bundle.containsKey(key))
 			return bundle.getString(key).split(" ");
-		return "  ".split(" ");
+		return " ".split(" ");
 	}
 
 

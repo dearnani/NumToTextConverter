@@ -1,9 +1,13 @@
 package org.virtusa.codetest.util;
 
-import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.virtusa.codetest.exception.NumToTextException;
 
 
 /**
@@ -16,17 +20,19 @@ import java.util.Set;
  */
 public class PropertyServiceLocator {
 	
-	//private static Log // logger = LogFactory.getLog(PropertyServiceLocator.class);
+	private static Logger logger = LoggerFactory.getLogger(PropertyServiceLocator.class);
 	
 	private final Properties configProp = new Properties();
 
 	private PropertyServiceLocator() {
-		// Private constructor to restrict new instances
-		// logger.debug("Read all properties from properties file: application.properties");
+		 logger.debug("Read all properties from properties file: application.properties");
 		try (InputStream configInputStream = this.getClass().getClassLoader().getResourceAsStream("application-settings.properties");){
 			configProp.load(configInputStream);
-		} catch (IOException e) {
-			// logger.error(String.format("IOException Occured while reading the properties from application.properties", e.getMessage()));
+		} catch (Exception propException) {
+			
+			 Optional<String> errorMsg = ResourceBundleServiceLocator.getInstance().getProperty("error.1003");
+			 logger.error(String.format("Exception Occured at PropertyServiceLocator: NumToTextConverter-ErrorCode->1004 : ErrorMessage:-> %s ExceptionMessage->%s",errorMsg.get(),propException.getMessage()));
+			 throw new NumToTextException("1003", errorMsg.get());
 		}
 	}
 
