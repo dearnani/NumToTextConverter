@@ -17,9 +17,11 @@ import org.virtusa.codetest.exception.NumToTextException;
  * @author Narasimha
  *
  */
-public class ResourceBundleServiceLocator {
+public class  ResourceBundleServiceLocator {
+	
+//	INSTANCE;
 
-	private static Logger logger = LoggerFactory.getLogger(ResourceBundleServiceLocator.class); 
+	private  Logger logger = LoggerFactory.getLogger(ResourceBundleServiceLocator.class); 
 	
 	private final static String RESOURCE_BUNDLE = "config/application";
 	ResourceBundle bundle = null;
@@ -34,12 +36,7 @@ public class ResourceBundleServiceLocator {
 			{
 				locale = new Locale(System.getProperty("config.app.locale"));
 			}
-			else
-				if (ResourceBundleServiceLocator.getInstance().getProperty("config.app.default.locale") != null )  {
-					locale = new Locale(ResourceBundleServiceLocator.getInstance().getProperty("config.app.default.locale").get());
-				}
-
-			Locale.setDefault(locale);
+				Locale.setDefault(locale);
 			bundle = ResourceBundle.getBundle(RESOURCE_BUNDLE,
 					locale);
 
@@ -55,7 +52,7 @@ public class ResourceBundleServiceLocator {
 		private static final ResourceBundleServiceLocator INSTANCE = new ResourceBundleServiceLocator();
 	}
 
-	public static ResourceBundleServiceLocator getInstance() {
+	public static synchronized ResourceBundleServiceLocator getInstance() {
 		return LazyHolder.INSTANCE;
 	}
 

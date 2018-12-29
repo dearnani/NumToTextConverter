@@ -19,9 +19,11 @@ public class NumToTextConversionServiceImpl implements NumToTextConversionServic
 	public String NumToTextConverter(@NotNull(message="Number should not be NULL") @Max(2147483647) @Min(-2147483647) int number) {
 
 		try {
-			final String[] units = ResourceBundleServiceLocator.getInstance().getValuesByKey("num.units");
-			final String[] tens = ResourceBundleServiceLocator.getInstance().getValuesByKey("num.tens");
-			final String[] patterns = ResourceBundleServiceLocator.getInstance().getValuesByKey("num.pattern");
+			
+			ResourceBundleServiceLocator resourceBundle = ResourceBundleServiceLocator.getInstance();
+			final String[] units = resourceBundle.getValuesByKey("num.units");
+			final String[] tens = resourceBundle.getValuesByKey("num.tens");
+			final String[] patterns = resourceBundle.getValuesByKey("num.pattern");
 			
 			if (number < 0) {
 				return String.format("Minus %s ", NumToTextConverter(-number));
