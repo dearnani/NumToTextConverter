@@ -17,9 +17,9 @@ import org.virtusa.codetest.exception.NumToTextException;
  * @author Narasimha
  *
  */
-public class  ResourceBundleServiceLocator {
+public enum  ResourceBundleServiceLocator {
 	
-//	INSTANCE;
+	INSTANCE;
 
 	private  Logger logger = LoggerFactory.getLogger(ResourceBundleServiceLocator.class); 
 	
@@ -41,19 +41,10 @@ public class  ResourceBundleServiceLocator {
 					locale);
 
 		} catch (Exception rsrcParserexception) {
-			Optional<String> errorMsg = ResourceBundleServiceLocator.getInstance().getProperty("error.1002");
-			logger.error(String.format("Excpetion thrown while parsing the application.properties At ResourceBundleServiceLocator -ErrorCode->1002 : ErrorMessage:-> %s Exception Message:%s",errorMsg.get(),rsrcParserexception.getMessage()));
+			Optional<String> errorMsg = getProperty("error.1002");
+			logger.warn(String.format("Excpetion thrown while parsing the application.properties At ResourceBundleServiceLocator -ErrorCode->1002 : ErrorMessage:-> %s Exception Message:%s",errorMsg.get(),rsrcParserexception.getMessage()));
 			throw new NumToTextException("1002", errorMsg.get());
 		}
-	}
-
-	// singleton pattern
-	private static class LazyHolder {
-		private static final ResourceBundleServiceLocator INSTANCE = new ResourceBundleServiceLocator();
-	}
-
-	public static synchronized ResourceBundleServiceLocator getInstance() {
-		return LazyHolder.INSTANCE;
 	}
 
 	public Optional<String> getProperty(String key) {

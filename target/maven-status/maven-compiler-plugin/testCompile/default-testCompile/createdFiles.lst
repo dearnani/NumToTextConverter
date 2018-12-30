@@ -1,2 +1,3 @@
 org\virtusa\codetest\util\PropertyServiceLocatorTest.class
+org\virtusa\codetest\service\NumToTextConversionServiceImplTest.class
 org\virtusa\codetest\util\ResourceBundleServiceLocatorTest.class

@@ -30,8 +30,8 @@ public class PropertyServiceLocator {
 			configProp.load(configInputStream);
 		} catch (Exception propException) {
 			
-			 Optional<String> errorMsg = ResourceBundleServiceLocator.getInstance().getProperty("error.1003");
-			 logger.error(String.format("Exception Occured at PropertyServiceLocator: NumToTextConverter-ErrorCode->1004 : ErrorMessage:-> %s ExceptionMessage->%s",errorMsg.get(),propException.getMessage()));
+			 Optional<String> errorMsg = ResourceBundleServiceLocator.INSTANCE.getProperty("error.1003");
+			 logger.warn(String.format("Exception Occured at PropertyServiceLocator: NumToTextConverter-ErrorCode->1004 : ErrorMessage:-> %s ExceptionMessage->%s",errorMsg.get(),propException.getMessage()));
 			 throw new NumToTextException("1003", errorMsg.get());
 		}
 	}

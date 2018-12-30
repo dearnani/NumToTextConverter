@@ -20,7 +20,7 @@ public class NumToTextConversionServiceImpl implements NumToTextConversionServic
 
 		try {
 			
-			ResourceBundleServiceLocator resourceBundle = ResourceBundleServiceLocator.getInstance();
+			ResourceBundleServiceLocator resourceBundle = ResourceBundleServiceLocator.INSTANCE;
 			final String[] units = resourceBundle.getValuesByKey("num.units");
 			final String[] tens = resourceBundle.getValuesByKey("num.tens");
 			final String[] patterns = resourceBundle.getValuesByKey("num.pattern");
@@ -56,8 +56,8 @@ public class NumToTextConversionServiceImpl implements NumToTextConversionServic
 					((number % 10000000 != 0) ? " " : ""), NumToTextConverter(number % 10000000));
 			
 		} catch(Exception serviceException) {
-			Optional<String> errorMsg = ResourceBundleServiceLocator.getInstance().getProperty("error.1004");
-			logger.error(String.format("Exception Occured at NumToTextConversionServiceImpl: NumToTextConverter-ErrorCode->1004 : ErrorMessage:-> %s ExceptionMessage->%s",errorMsg.get(),serviceException.getMessage()));
+			Optional<String> errorMsg = ResourceBundleServiceLocator.INSTANCE.getProperty("error.1004");
+			logger.warn(String.format("Exception Occured at NumToTextConversionServiceImpl: NumToTextConverter-ErrorCode->1004 : ErrorMessage:-> %s ExceptionMessage->%s",errorMsg.get(),serviceException.getMessage()));
 			throw new NumToTextException("1004", errorMsg.get());
 		}
 	}

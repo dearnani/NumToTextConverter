@@ -6,6 +6,4 @@ org\virtusa\codetest\main\App.class
 org\virtusa\codetest\util\ResourceBundleServiceLocator.class
 org\virtusa\codetest\util\PropertyServiceLocator$LazyHolder.class
 org\virtusa\codetest\exception\NumToTextException.class
-org\virtusa\codetest\util\ResourceBundleServiceLocator$1.class
 org\virtusa\codetest\util\AdoptSettings.class
-org\virtusa\codetest\util\ResourceBundleServiceLocator$LazyHolder.class
